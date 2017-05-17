@@ -1,8 +1,8 @@
 puts "Укажите ваше имя и рост"
-Name = gets.chomp
-Growth = gets.chomp
-if Growth.to_i < 110
+name = gets.chomp
+growth = gets.chomp.to_i
+if growth < 110
   puts "Ваш вес уже оптимальный"
 else
-  puts "#{Name}, твой идеальный вес #{Growth.to_i-110}"
+  puts "#{name}, твой идеальный вес #{growth - 110}"
 end
