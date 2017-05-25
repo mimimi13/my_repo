@@ -8,13 +8,13 @@
 =end
 
 
-vowels = ['а', 'е', 'ё', 'и', 'о', 'у', 'э', 'ю', 'я']
-abc=('а'..'я')
+vowels = %w( a e i o u )
+abc=('a'..'z')
 
 vowels_hash = {}
-abc.each_with_index() do  |x, y|
-      if vowels.include?(x)
-        vowels_hash[x] = y + 1
+abc.each_with_index() do  |letter, index|
+      if vowels.include?(letter)
+        vowels_hash[letter] = index + 1
       end
 end
 

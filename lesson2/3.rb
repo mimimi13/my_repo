@@ -7,7 +7,7 @@
 =end
 
 def get_fb(n)
-    if n < 3
+    if n < 2
         1
     else
         get_fb(n - 1) + get_fb(n - 2)
@@ -15,13 +15,9 @@ def get_fb(n)
 end
 n=0
 fib_array = []
-loop do
-  fb=get_fb(n)
-  if fb < 100
+
+while ((fb = get_fb(n)) < 100)
     fib_array << fb
-  else
-    break
-  end
-  n +=1
+    n +=1
 end
 puts fib_array

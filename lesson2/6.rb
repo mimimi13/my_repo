@@ -11,7 +11,7 @@
 products = {}
 total_sum = 0
 
-while (true) do
+loop do
   puts "product"
   product_name = gets.chomp
   break if product_name == 'стоп'
