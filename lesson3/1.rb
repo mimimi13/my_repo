@@ -16,7 +16,7 @@ class Station
     self.trains.delete(train)
   end
 
-  def get_train_by_type(type='cargo')
+  def get_train_by_type(type)
     self.trains.select.count { |train| train.type if train.type == type }
   end
 
@@ -25,32 +25,32 @@ end
 
 
 class Route
-attr_accessor :stantions
+  attr_accessor :stantions
 
-  def initialize(start_station='start',end_station='end')
-    self.stantions = [start_station, end_station]
+  def initialize(first_station, last_station)
+    self.stantions = [first_station, last_station]
   end
 
-  def add_staion(station_name='station_name')
-    self.stantions.insert(1, station_name)
+  def add_staion(station)
+    self.stantions.insert(1, station)
   end
 
-  def rm_staion(station_name='station_name')
-    self.stantions.delete(station_name)
+  def rm_staion(station)
+    self.stantions.delete(station)
   end
 
   def get_all_staion
-    self.stantions.each { |station| puts station }
+    self.stantions.each { |station| puts station.name }
   end
 
 end
 
 
 class Train
-  attr_accessor :speed, :route, :station, :next_station, :prev_station
+  attr_accessor :speed, :station, :next_station, :prev_station, :stations
   attr_reader :wagons, :type
 
-  def initialize(number='12323', type='cargo', wagons=8)
+  def initialize(number, type, wagons)
     @number = number
     @type = type
     @wagons = wagons.to_i
@@ -62,39 +62,48 @@ class Train
   end
 
   def add_wagons
-    if (self.speed == 0)
+    if self.speed == 0
       @wagons += 1
     else
       puts "The train is moving..."
     end
   end
 
+  def rm_wagons
+    if self.speed == 0 && @wagons > 1
+      @wagons -= 1
+    else
+      puts "The train is moving or wagons =< 1 ..."
+    end
+  end
+
   def set_route(route)
-    route = route.stantions
-    self.route = route
-    self.station = route[1]
-    self.next_station = route[2]
-    self.prev_station = route[0]
+    self.stations = route.stantions
+    self.station = route.stantions[0]
+    self.next_station = route.stantions[1]
+    self.prev_station = 'none'
+  end
+
+  def current_pos(current_station)
+    current = self.stations.find_index(current_station)
   end
 
   def move_next_station(current_station)
-    current_post = route.find_index(current_station)
-    if ( current_post ==  self.route.find_index(self.route.last))
+    if (current_pos(current_station) ==  self.stations.find_index(self.stations.last))
       puts 'final station'
     else
-      self.station = route[current_post + 1]
-      self.next_station = route[current_post + 2]
+      self.station = self.stations[current_pos(current_station) + 1]
+      self.next_station = self.stations[current_pos(current_station) + 2]
       self.prev_station = current_station
     end
   end
 
   def move_prev_station(current_station)
-    current_post = route.find_index(current_station)
-    if (current_post ==  self.route.find_index(self.route.first))
+    if (current_pos(current_station) ==  self.stations.find_index(self.stations.first))
       puts 'final station'
     else
-      self.station = route[current_post - 1]
-      self.next_station = route[current_post - 2]
+      self.station = self.stations[current_pos(current_station) - 1]
+      self.next_station = self.stations[current_pos(current_station) - 2]
       self.prev_station = current_station
     end
   end
