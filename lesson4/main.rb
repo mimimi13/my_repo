@@ -77,6 +77,9 @@ def exec_main (key)
      when 7
         puts "Перемещать поезд по маршруту вперед и назад"
         train_move
+      when 8
+         puts "список станций и список поездов на станции"
+         all_information
     else
        puts "Input Error1"
     end
