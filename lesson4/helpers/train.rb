@@ -38,26 +38,29 @@ end
 def add_wagon
   print_all_train
   train_number = get_number_train_from_user
-  puts "Сколько вагонов?"
+  puts "Сколько вогонов добавить?"
   train_number_wagons = gets.chomp.to_i
-  if @all_train[train_number].type == :parassenger
-    wagon = PassengerWagon.new
-  else
-    wagon = CargoWagon.new
-  end
+  wagon_number = @all_train[train_number].wagons.count.to_i + 1
   train_number_wagons.times do
-    @all_train[train_number].add_wagons(wagon)
-  end
+    if @all_train[train_number].type == :parassenger
+      wagon = PassengerWagon.new(wagon_number)
+    else
+      wagon = CargoWagon.new(wagon_number)
+    end
+      wagon_number +=1
+      @all_train[train_number].add_wagons(wagon)
+   end
 end
 
 def rm_wagon
   print_all_train
   train_number = get_number_train_from_user
-  puts "Сколько вагонов?"
-  train_number_wagons = gets.chomp.to_i
-  train_number_wagons.times do
-    @all_train[train_number].rm_wagons
+  puts "Какой номер вагона удалить"
+  remove_wagon_number = gets.chomp.to_i
+  @all_train[train_number].wagons.each do |wagon|
+      @all_train[train_number].rm_wagons(wagon) if  wagon.wagon_number == remove_wagon_number
   end
+
 end
 
 def move_train
