@@ -38,7 +38,7 @@ end
 def add_wagon
   print_all_train
   train_number = get_number_train_from_user
-  puts "Сколько вогонов добавить?"
+  puts "Сколько вагонов добавить?"
   train_number_wagons = gets.chomp.to_i
   wagon_number = @all_train[train_number].wagons.count.to_i + 1
   train_number_wagons.times do
