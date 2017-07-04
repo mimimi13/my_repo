@@ -1,8 +1,6 @@
 class Train
   include Vendor
   attr_reader :wagons, :number, :speed, :stations, :next_station, :prev_station, :type, :station
-  require_relative 'modules/instancecounter'
-  include InstanceCounter
 
   @@trains = {}
 
